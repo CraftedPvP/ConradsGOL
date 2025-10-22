@@ -67,7 +67,7 @@ namespace Michael
 
             // Animate scale from 0 to 1
             transform.localScale = Vector3.zero;
-            LeanTween.scale(gameObject, Vector3.one, GameManager.Instance.GameSettings.TransitionTime);
+            LeanTween.scale(gameObject, Vector3.one * GameManager.Instance.GameSettings.CellSize, GameManager.Instance.GameSettings.TransitionTime);
         }
         void TweenToDeath()
         {

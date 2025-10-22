@@ -39,7 +39,6 @@ namespace Michael
 
         void OnRelease(Cell cell)
         {
-            Debug.Log("Hi");
             cell.gameObject.SetActive(false);
         }
 

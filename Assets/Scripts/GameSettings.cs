@@ -25,8 +25,8 @@ namespace Michael {
         [SerializeField] float cellSize = 1f;
         public float CellSize => cellSize;
 
-        public Color AliveColor;
-        public Color DeadColor;
+        public Color AliveColor = Color.yellow;
+        public Color DeadColor = Color.gray;
 
         [SerializeField] int maxCells = 2000;
         public int MaxCells => maxCells;
@@ -37,8 +37,8 @@ namespace Michael {
         public ICellAction RandomLifeChance => randomLifeChance;
 
         [Tooltip("Action to update state of the cell")]
-        [SerializeField] ICellAction updateState;
-        public ICellAction UpdateState => updateState;
+        [SerializeField] ICellAction changeState;
+        public ICellAction ChangeState => changeState;
         
         [Tooltip("Action to check neighbors of the cell")]
         [SerializeField] ICellAction checkNeighbors;

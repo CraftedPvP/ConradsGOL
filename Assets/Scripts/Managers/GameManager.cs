@@ -34,7 +34,7 @@ namespace Michael
             {
                 hasTransitioned = true;
                 Map.Instance.CheckNeighbors();
-                Map.Instance.UpdateCellState();
+                Map.Instance.ChangeCellState();
                 Map.Instance.TransitionCells();
             }
 

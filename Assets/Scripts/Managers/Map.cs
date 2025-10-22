@@ -46,7 +46,7 @@ namespace Michael {
         }
         public void SpawnCellsAtChance() => ProcessMap(gameSettings.RandomLifeChance);
         public void CheckNeighbors() => ProcessMap(gameSettings.CheckNeighbors);
-        public void UpdateCellState() => ProcessMap(gameSettings.UpdateState);
+        public void ChangeCellState() => ProcessMap(gameSettings.ChangeState);
         public void TransitionCells() => ProcessMap(gameSettings.TransitionState);
         /// <summary>
         /// only meant to be called from <see cref="GameManager.ResetMap"/>
