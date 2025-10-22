@@ -7,7 +7,7 @@ namespace Michael
     {
         public override void Execute(Cell cell)
         {
-            cell.TweenBasedOnState();
+            cell.TransitionState();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Michael
         {
             // Check if the cell should be alive
             cell.FutureIsAlive = Random.value < aliveChance;
+            // Debug.Log($"Cell at {cell.name} set to {(cell.FutureIsAlive ? "Alive" : "Dead")}");
         }
     }
 }

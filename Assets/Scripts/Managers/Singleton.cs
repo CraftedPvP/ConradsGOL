@@ -13,7 +13,7 @@ namespace Michael
             {
                 if (instance == null)
                 {
-                    instance = FindObjectOfType<T>();
+                    instance = FindFirstObjectByType<T>();
                     if (instance == null)
                     {
                         GameObject singletonObject = new GameObject(typeof(T).Name);

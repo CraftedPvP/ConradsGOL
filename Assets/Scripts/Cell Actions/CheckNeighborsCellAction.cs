@@ -6,7 +6,7 @@ namespace Michael
     public class CheckNeighborsCellAction : ICellAction
     {
         [SerializeField] LayerMask cellLayerMask;
-        Vector2[] NeighborDirections = new Vector2[]
+        public static Vector2[] NeighborDirections = new Vector2[]
         { // starts from top and goes clockwise
             Vector2.up,
             new Vector2(1, 1),
@@ -20,7 +20,7 @@ namespace Michael
         public override void Execute(Cell cell)
         {
             cell.Neighbors = CheckNeighbors(cell);
-            // Debug.Log($"Cell at {cell.name} has {cell.LiveNeighborCount} live neighbors.");
+            Debug.Log($"Cell at {cell.name} has {cell.LiveNeighborCount} live neighbors.", cell);
         }
 
         public Cell[] CheckNeighbors(Cell cell)
@@ -29,17 +29,30 @@ namespace Michael
             Cell[] neighbors = new Cell[8];
             for (int i = 0; i < NeighborDirections.Length; i++)
             {
-                RaycastHit2D hit = Physics2D.Raycast(
-                    cell.transform.position,
+                Vector3 offset = NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize / 2);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(
+                    cell.transform.position + offset,
                     NeighborDirections[i],
                     // 1.8f is padding to ensure we hit the diagonal neighbor
                     GameManager.Instance.GameSettings.CellSize * 1.8f,
                     cellLayerMask
                 );
-                if (hit.collider == null) continue;
+                if (hits.Length == 0)
+                {
+                    neighbors[i] = null;
+                    continue;
+                }
 
-                Cell neighbor = hit.collider.GetComponent<Cell>();
-                if (neighbor != null) neighbors[i] = neighbor;
+                for (int hitIndex = 0; hitIndex < hits.Length; hitIndex++)
+                {
+                    RaycastHit2D hit = hits[hitIndex];
+                    // skip self
+                    if (hit.collider == cell.Collider) continue;
+
+                    Cell neighbor = hit.collider.GetComponent<Cell>();
+                    neighbors[i] = neighbor;
+                    break;
+                }
             }
             return neighbors;
         }
