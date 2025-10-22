@@ -57,6 +57,7 @@ namespace Michael {
                 CellSpawner.Instance.Return(cells[i]);
             cells.Clear();
             SpawnCells();
+            OnMapReset?.Invoke();
         }
     }
 }
