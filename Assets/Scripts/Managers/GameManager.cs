@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Michael
@@ -50,6 +48,22 @@ namespace Michael
             gameplayTime = 0f;
             hasTransitioned = true;
             Map.Instance.ResetMap();
+        }
+
+        public void Play()
+        {
+            Time.timeScale = 1f;
+        }
+
+        public void Pause()
+        {
+            Time.timeScale = 0f;
+        }
+        public float SetGameSpeed(float speed)
+        {
+            speed = Mathf.Clamp(speed, 0f, 3f);
+            Time.timeScale = speed;
+            return Time.timeScale;
         }
     }
 }
