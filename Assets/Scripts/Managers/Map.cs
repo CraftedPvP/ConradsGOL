@@ -52,7 +52,11 @@ namespace Michael {
         /// </summary>
         void CheckToSpawnCell()
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
+            if (EventSystem.current.IsPointerOverGameObject()) {
+                // fixes a bug where clicking on UI would still spawn a cell after exiting off the UI
+                playerWantsToSpawnCell = false;
+                return;
+            }
             if (!playerWantsToSpawnCell) return;
             playerWantsToSpawnCell = false;
 
