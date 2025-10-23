@@ -41,8 +41,20 @@ namespace Michael {
             PlayerController.Instance.Controls.Game.Select.performed += OnPlayerSelectGrid;
             OnCellDeath += HandleCellDeath;
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+            ColorPicker.OnColorChanged += OnColorChanged;
+        }
+        void OnDestroy()
+        {
+            ColorPicker.OnColorChanged -= OnColorChanged;
         }
 
+        void OnColorChanged(Color color)
+        {
+            foreach (var cell in cells)
+            {
+                if (cell.IsAlive) cell.ChangeColor(color);
+            }
+        }
         void OnGameStateChanged(GameState state)
         {
             if (state == GameState.Running)

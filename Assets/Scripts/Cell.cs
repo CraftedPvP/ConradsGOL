@@ -51,10 +51,17 @@ namespace Michael
         /// this contains references to the neighboring cells including nulls for out of bounds neighbors.
         /// we want to keep track of nulls as we want to be able to extend the map based from the initial grid
         /// </summary>
-        public Cell[] Neighbors = new Cell[8];
+        public Cell[] Neighbors = new Cell[CheckNeighborsCellAction.NeighborDirections.Length];
         public Collider2D Collider => cellCollider;
         GameObject spriteObject => transform.GetChild(0).gameObject;
 
+        // Tweening fields for manual interpolation
+        struct TweenInfo {
+            public Vector3 startScale, targetScale;
+            public Color startColor, targetColor;
+            public float timeElapsed, tweenDuration;
+        }
+        TweenInfo tweenInfo;
         void Awake()
         {
             spriteRenderer = spriteObject.GetComponent<SpriteRenderer>();
@@ -63,15 +70,15 @@ namespace Michael
         }
         void Start()
         {
-            ColorPicker.OnColorChanged += OnColorChanged;
             spriteRenderer.color = isAlive ? GameManager.Instance.GameSettings.AliveColor : GameManager.Instance.GameSettings.DeadColor;
             spriteObject.transform.localScale = Vector3.zero;
+            enabled = false;
         }
-        void OnDestroy()
+        void Update()
         {
-            ColorPicker.OnColorChanged -= OnColorChanged;
+            AnimateOverTime();
         }
-        void OnColorChanged(Color color) => spriteRenderer.color = color;
+        public void ChangeColor(Color color) => spriteRenderer.color = color;
 
         void OnDrawGizmosSelected()
         {
@@ -101,45 +108,44 @@ namespace Michael
             // Debug.Log($"Cell at {name} transitioning to {(isAlive ? "Alive" : "Dead")}");
             if (isAlive) TweenToLife();
             else TweenToDeath();
+            enabled = true;
+        }
+        void SetTweenToAnimate(Vector3 targetScale, Color targetColor)
+        {
+            tweenInfo.startScale = spriteObject.transform.localScale;
+            tweenInfo.targetScale = targetScale;
+            tweenInfo.startColor = spriteRenderer.color;
+            tweenInfo.targetColor = targetColor;
+            tweenInfo.timeElapsed = 0f;
+            tweenInfo.tweenDuration = GameManager.Instance.GameSettings.TransitionTime;
+        }
+        void AnimateOverTime(){
+            // Interpolate
+            tweenInfo.timeElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(tweenInfo.timeElapsed / tweenInfo.tweenDuration);
+            spriteObject.transform.localScale = Vector3.Lerp(tweenInfo.startScale, tweenInfo.targetScale, t);
+            spriteRenderer.color = Color.Lerp(tweenInfo.startColor, tweenInfo.targetColor, t);
+
+            if (t >= 1f)
+            {
+                spriteObject.transform.localScale = tweenInfo.targetScale;
+                spriteRenderer.color = tweenInfo.targetColor;
+                enabled = false;
+                if (!isAlive) OnDeath();
+            }
         }
         void TweenToLife()
         {
             Vector3 targetScale = Vector3.one * GameManager.Instance.GameSettings.CellSize;
-
-            // skip tween if already alive
-            if (spriteObject.transform.localScale == targetScale) return;
-
-            // prevent tween overlap
-            LeanTween.cancel(gameObject);
-            LeanTween.cancel(spriteObject);
-
-            // Animate color from deadColor to aliveColor
-            Color deadColor = GameManager.Instance.GameSettings.DeadColor;
             Color aliveColor = GameManager.Instance.GameSettings.AliveColor;
-            LeanTween.value(gameObject, ChangeColor, deadColor, aliveColor, GameManager.Instance.GameSettings.TransitionTime);
-
-            // Animate scale from 0 to CellSize
-            LeanTween.scale(spriteObject, targetScale, GameManager.Instance.GameSettings.TransitionTime);
+            SetTweenToAnimate(targetScale, aliveColor);
         }
         void TweenToDeath()
         {
-            // don't tween if already dead
-            if (spriteObject.transform.localScale == Vector3.zero) return;
-
-            // prevent tween overlap
-            LeanTween.cancel(gameObject);
-            LeanTween.cancel(spriteObject);
-
-            // Animate color from aliveColor to deadColor
+            Vector3 targetScale = Vector3.zero;
             Color deadColor = GameManager.Instance.GameSettings.DeadColor;
-            Color aliveColor = GameManager.Instance.GameSettings.AliveColor;
-            LeanTween.value(gameObject, ChangeColor, aliveColor, deadColor, GameManager.Instance.GameSettings.TransitionTime);
-
-            // Animate scale from CellSize to 0
-            LeanTween.scale(spriteObject, Vector3.zero, GameManager.Instance.GameSettings.TransitionTime)
-                .setOnComplete(OnDeath);
+            SetTweenToAnimate(targetScale, deadColor);
         }
-        void ChangeColor(Color targetColor) => spriteRenderer.color = targetColor;
         void OnDeath() {
             CellSpawner.Instance.Return(this);
             Map.Instance.OnCellDeath?.Invoke(this);

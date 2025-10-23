@@ -42,7 +42,7 @@ namespace Michael
                 if (CheckIfMetRequirements(directionIndex, emptyCellPos)){
                     CellsThatNeedSpawning.Add(emptyCellPos);
                     // Map.Instance.SpawnCellAtPosition(emptyCellPos);
-                    Debug.Log("Going to expand into empty cell at " + emptyCellPos);
+                    // Debug.Log("Going to expand into empty cell at " + emptyCellPos);
                 }
             }
             emptyNeighbors.Clear();
