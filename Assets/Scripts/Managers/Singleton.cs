@@ -23,7 +23,6 @@ namespace Michael
                 return instance;
             }
         }
-        [SerializeField] bool keepAliveOnLoad = true;
         public virtual void Awake()
         {
             if(instance)
@@ -33,9 +32,6 @@ namespace Michael
             }
 
             instance = this as T;
-            if (!keepAliveOnLoad) return;
-            transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
         }
     }
 }

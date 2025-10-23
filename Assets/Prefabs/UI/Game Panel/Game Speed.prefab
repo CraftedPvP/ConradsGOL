@@ -203,8 +203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.11
-  m_fontSizeBase: 33.11
+  m_fontSize: 29.05
+  m_fontSizeBase: 29.05
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 3289002046297445991}
   - component: {fileID: 3262979587450660150}
   - component: {fileID: 1871743909941140701}
+  - component: {fileID: 8730353275483700460}
   m_Layer: 5
   m_Name: Game Speed
   m_TagString: Untagged
@@ -302,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 8005725856846000544}
   slider: {fileID: 772464093731822273}
-  formatString: '{0}x'
+  formatString: '{0:0.0}x'
 --- !u!222 &3262979587450660150
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -341,6 +342,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8730353275483700460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710674198453575611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b9ac7b8ce006444e8a18594c75af20b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeState: 1
 --- !u!1 &3792691654063072022
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,9 +523,9 @@ RectTransform:
   - {fileID: 3188195213768356071}
   m_Father: {fileID: 4539361021490028682}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -104.9, y: 15}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 19.8}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8839507244069048126
@@ -599,6 +613,18 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000, guid: c5f013b50c4ae0a4db806c7800d7c72d, type: 2}
         m_TargetAssemblyTypeName: Michael.GameUIEventHandler, Assembly-CSharp
         m_MethodName: ResetGameSpeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3289002046297445991}
+        m_TargetAssemblyTypeName: Michael.UISliderToText, Assembly-CSharp
+        m_MethodName: ForceUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -937,7 +963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9198936200205892568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1050,6 +1076,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8005725856846000544}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 0x
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &7119581624844403342

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,9 +17,7 @@ namespace Michael
             UpdateText(slider.value);
         }
 
-        void UpdateText(float value)
-        {
-            text.text = string.Format(formatString, value);
-        }
+        void UpdateText(float value) => text.text = string.Format(formatString, value);
+        public void ForceUpdate() => UpdateText(slider.value);
     }
 }

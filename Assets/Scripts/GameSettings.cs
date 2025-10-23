@@ -4,14 +4,12 @@ namespace Michael {
     [CreateAssetMenu(fileName = "Game Settings", menuName = "Michael/Game Settings", order = 1)]
     public class GameSettings : ScriptableObject
     {
-        [Header("Map")]
-        [SerializeField] float gridSize = 1f;
-        public float GridSize => gridSize;
+        // [Header("Map")]
         // [Tooltip("Starting map size (width, height)")]
         // [SerializeField] Vector2Int mapSize = new Vector2Int(10, 10);
         // public Vector2Int MapSize => mapSize;
 
-        [Header("Life")]
+        [Header("Lifecycle")]
         [Tooltip("Time in seconds before a living cell changes its state")]
         [SerializeField] float livingLife = 0.5f;
         public float LivingLife => livingLife;

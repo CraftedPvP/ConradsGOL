@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Michael
@@ -61,9 +62,16 @@ namespace Michael
         }
         void Start()
         {
+            ColorPicker.OnColorChanged += OnColorChanged;
             spriteRenderer.color = isAlive ? GameManager.Instance.GameSettings.AliveColor : GameManager.Instance.GameSettings.DeadColor;
             spriteObject.transform.localScale = Vector3.zero;
         }
+        void OnDestroy()
+        {
+            ColorPicker.OnColorChanged -= OnColorChanged;
+        }
+        void OnColorChanged(Color color) => spriteRenderer.color = color;
+
         void OnDrawGizmosSelected()
         {
             for (int i = 0; i < CheckNeighborsCellAction.NeighborDirections.Length; i++)

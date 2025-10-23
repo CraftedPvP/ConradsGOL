@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace Michael
@@ -25,6 +26,15 @@ namespace Michael
         public void StartSimulation()
         {
             GameManager.Instance.StartSimulation();
+        }
+        public void UpdateGameSpeed(TextMeshProUGUI speedText)
+        {
+            if (speedText != null)
+                speedText.text = $"{Time.timeScale:0.0}x";
+        }
+        public void ToggleGameObjectVisibility(GameObject go)
+        {
+            go.SetActive(!go.activeSelf);
         }
     }
 }
