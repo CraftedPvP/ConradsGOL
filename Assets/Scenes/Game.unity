@@ -623,8 +623,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: a99e95fd4d82b2a4da2d1b8e7d39e5e5, type: 2}
-        m_TargetAssemblyTypeName: Michael.CanvasUIEventHandler, Assembly-CSharp
-        m_MethodName: ToggleVisibility
+        m_TargetAssemblyTypeName: Michael.CanvasUIEventHandler, Michael
+        m_MethodName: ToggleGameUIPanel
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -756,8 +756,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: a99e95fd4d82b2a4da2d1b8e7d39e5e5, type: 2}
-        m_TargetAssemblyTypeName: Michael.CanvasUIEventHandler, Assembly-CSharp
-        m_MethodName: ToggleVisibility
+        m_TargetAssemblyTypeName: Michael.CanvasUIEventHandler, Michael
+        m_MethodName: ToggleGameUIPanel
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1030,8 +1030,10 @@ GameObject:
   - component: {fileID: 933264799}
   - component: {fileID: 933264801}
   - component: {fileID: 933264800}
+  - component: {fileID: 933264802}
+  - component: {fileID: 933264803}
   m_Layer: 5
-  m_Name: Content
+  m_Name: Game Canvas UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1057,7 +1059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 146, y: 0}
+  m_AnchoredPosition: {x: 148, y: 0}
   m_SizeDelta: {x: 293.0225, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &933264800
@@ -1098,6 +1100,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933264798}
   m_CullTransparentMesh: 1
+--- !u!225 &933264802
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933264798}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &933264803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933264798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6982ff3233f827342ad569eb7069cebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTime: 0.35
+  xOffset: 146
+  showOnStart: 0
+  isAnimated: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
