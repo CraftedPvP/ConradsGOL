@@ -1,9 +1,25 @@
+using System;
 using UnityEngine;
 
 namespace Michael
 {
+    public enum GameState
+    {
+        Idle,
+        Running
+    }
+    /// <summary>
+    /// Manages the lifecycle of the simulation.
+    /// </summary>
     public class GameManager : Singleton<GameManager>
     {
+        public Action<GameState> OnGameStateChanged;
+        GameState _currentGameState = GameState.Idle;
+        public GameState CurrentGameState {
+            get => _currentGameState;
+            private set { _currentGameState = value; OnGameStateChanged?.Invoke(value); }
+        }
+        
         [SerializeField] GameSettings gameSettings;
         public GameSettings GameSettings => gameSettings;
 
@@ -12,8 +28,7 @@ namespace Michael
 
         int generation = 0;
         public int Generation => generation;
-        bool isGameRunning = false;
-        public bool IsGameRunning => isGameRunning;
+        public bool IsGameRunning => CurrentGameState == GameState.Running;
 
         public override void Awake()
         {
@@ -21,6 +36,7 @@ namespace Michael
         }
         void Start()
         {
+            // disable here so we can manually control when Update is called
             gameObject.SetActive(false);
         }
         void Update()
@@ -42,6 +58,7 @@ namespace Michael
                 Map.Instance.CheckNeighbors();
                 Map.Instance.ChangeCellState();
                 Map.Instance.TransitionCells();
+                IncrementGeneration();
                 CallUpdateStats();
             }
 
@@ -52,26 +69,33 @@ namespace Michael
                 hasTransitioned = false;
             }
         }
-        public void ResetMap()
-        {
-            gameplayTime = 0f;
-            hasTransitioned = true;
-            Map.Instance.ResetMap();
-        }
         public void StartSimulation()
         {
-            isGameRunning = true;
+            // reset values
             gameplayTime = 0f;
+            generation = 0;
             hasTransitioned = false;
+            
+            // prepare map
+            Map.Instance.TransitionCells();
+            CallUpdateStats();
+            
+            // start simulation
             gameObject.SetActive(true);
             // toggle game ui on via event
+            CurrentGameState = GameState.Running;
         }
         public void StopSimulation()
         {
-            isGameRunning = false;
-            gameplayTime = 0f;
-            hasTransitioned = false;
+            CurrentGameState = GameState.Idle;
+            // prevent simulation from running
             gameObject.SetActive(false);
+
+            // reset values
+            gameplayTime = 0f;
+            generation = 0;
+            hasTransitioned = false;
+
             Map.Instance.ClearMap();
             // toggle game ui off via event
         }
@@ -97,7 +121,7 @@ namespace Michael
         {
             // allow Animator to change state first
             Invoke(nameof(UpdateStats), 0.1f);
-            // if we don't delay the call, alive cells on the first generation will be 0
+            // if we don't delay the call, newly created living cell upon calling update stats will be 0
         }
         void UpdateStats()
         {
@@ -110,8 +134,12 @@ namespace Michael
         }
         void UpdateGenerationStat()
         {
-            generation++;
             Stats.Instance.OnStatUpdated?.Invoke(Stats.StatType.Generation, generation.ToString());
+        }
+        public void IncrementGeneration()
+        {
+            generation++;
+            UpdateGenerationStat();
         }
         #endregion
     }

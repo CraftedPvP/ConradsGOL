@@ -17,8 +17,8 @@ namespace Michael
         {
             base.Awake();
 
-            int initialCellCount = GameManager.Instance.GameSettings.MapSize.x * GameManager.Instance.GameSettings.MapSize.y;
-            initialCellCount += 100; // buffer
+            // int initialCellCount = GameManager.Instance.GameSettings.MapSize.x * GameManager.Instance.GameSettings.MapSize.y;
+            int initialCellCount = 100;
 
             // Create a pool with the four core callbacks.
             pool = new ObjectPool<Cell>(

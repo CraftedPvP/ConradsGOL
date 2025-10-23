@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Michael
@@ -7,10 +5,6 @@ namespace Michael
     [CreateAssetMenu(fileName = "Game UI", menuName = "Michael/UI Event Handler/Game UI")]
     public class GameUIEventHandler : UIEventHandler
     {
-        public void ResetMap()
-        {
-            GameManager.Instance.ResetMap();
-        }
         public void PauseGameSpeed()
         {
             GameManager.Instance.PauseGameSpeed();

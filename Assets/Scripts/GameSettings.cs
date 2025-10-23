@@ -5,9 +5,11 @@ namespace Michael {
     public class GameSettings : ScriptableObject
     {
         [Header("Map")]
-        [Tooltip("Starting map size (width, height)")]
-        [SerializeField] Vector2Int mapSize = new Vector2Int(10, 10);
-        public Vector2Int MapSize => mapSize;
+        [SerializeField] float gridSize = 1f;
+        public float GridSize => gridSize;
+        // [Tooltip("Starting map size (width, height)")]
+        // [SerializeField] Vector2Int mapSize = new Vector2Int(10, 10);
+        // public Vector2Int MapSize => mapSize;
 
         [Header("Life")]
         [Tooltip("Time in seconds before a living cell changes its state")]
