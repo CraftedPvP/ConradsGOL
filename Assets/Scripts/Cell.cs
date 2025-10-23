@@ -95,6 +95,11 @@ namespace Michael
         }
         void TweenToLife()
         {
+            Vector3 targetScale = Vector3.one * GameManager.Instance.GameSettings.CellSize;
+
+            // skip tween if already alive
+            if (spriteObject.transform.localScale == targetScale) return;
+
             // prevent tween overlap
             LeanTween.cancel(gameObject);
             LeanTween.cancel(spriteObject);
@@ -105,10 +110,13 @@ namespace Michael
             LeanTween.value(gameObject, ChangeColor, deadColor, aliveColor, GameManager.Instance.GameSettings.TransitionTime);
 
             // Animate scale from 0 to CellSize
-            LeanTween.scale(spriteObject, Vector3.one * GameManager.Instance.GameSettings.CellSize, GameManager.Instance.GameSettings.TransitionTime);
+            LeanTween.scale(spriteObject, targetScale, GameManager.Instance.GameSettings.TransitionTime);
         }
         void TweenToDeath()
         {
+            // don't tween if already dead
+            if (spriteObject.transform.localScale == Vector3.zero) return;
+
             // prevent tween overlap
             LeanTween.cancel(gameObject);
             LeanTween.cancel(spriteObject);
