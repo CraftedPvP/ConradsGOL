@@ -23,7 +23,7 @@ namespace Michael
         public override void Execute(Cell cell)
         {
             cell.Neighbors = CheckNeighbors(cell);
-            Debug.Log($"Cell at {cell.name} has {cell.LiveNeighborCount} live neighbors.", cell);
+            // Debug.Log($"Cell at {cell.name} has {cell.LiveNeighborCount} live neighbors.", cell);
         }
 
         public Cell[] CheckNeighbors(Cell cell)

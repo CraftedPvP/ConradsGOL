@@ -37,7 +37,7 @@ namespace Michael
                 Map.Instance.CheckNeighbors();
                 Map.Instance.ChangeCellState();
                 Map.Instance.TransitionCells();
-                UpdateStats();
+                CallUpdateStats();
             }
 
             // reset for next lifecycle
@@ -71,7 +71,13 @@ namespace Michael
         }
         #endregion
         #region Stats
-        public void UpdateStats()
+        public void CallUpdateStats()
+        {
+            // allow Animator to change state first
+            Invoke(nameof(UpdateStats), 0.1f);
+            // if we don't delay the call, alive cells on the first generation will be 0
+        }
+        void UpdateStats()
         {
             UpdateAliveCellStat();
             UpdateGenerationStat();

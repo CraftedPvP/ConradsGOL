@@ -55,7 +55,7 @@ namespace Michael {
             }
             SpawnCellsAtChance();
             TransitionCells();
-            GameManager.Instance.UpdateStats();
+            GameManager.Instance.CallUpdateStats();
         }
         public void SpawnCellsAtChance() => ProcessMap(gameSettings.RandomLifeChance);
         public void CheckNeighbors() => ProcessMap(gameSettings.CheckNeighbors);
