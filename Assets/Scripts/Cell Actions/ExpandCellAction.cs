@@ -38,6 +38,9 @@ namespace Michael
                 int directionIndex = kvp.Key;
                 Vector2 emptyCellPos = kvp.Value;
 
+                // skip if we've already marked this cell for spawning
+                if (CellsThatNeedSpawning.Contains(emptyCellPos)) continue;
+                
                 // check requirements for expansion
                 if (CheckIfMetRequirements(directionIndex, emptyCellPos)){
                     CellsThatNeedSpawning.Add(emptyCellPos);
@@ -50,8 +53,8 @@ namespace Michael
         /// <summary>
         /// for each empty cell, check if it meets the requirements to expand into
         /// </summary>
-        /// <param name="directionIndex"></param>
-        /// <param name="emptyCellPos"></param>
+        /// <param name="directionIndex">used to fetch the direction if needed</param>
+        /// <param name="emptyCellPos">world position of the empty cell</param>
         /// <returns>true, if can expand into the empty cell</returns>
         bool CheckIfMetRequirements(int directionIndex, Vector3 emptyCellPos)
         {
