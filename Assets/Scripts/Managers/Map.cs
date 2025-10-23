@@ -16,6 +16,18 @@ namespace Michael {
         [Header("Game Elements")]
         [SerializeField] List<Cell> cells;
         public int CellsInMapCount => cells.Count;
+        public int AliveCellsCount
+        {
+            get
+            {
+                int count = 0;
+                for (int i = 0; i < cells.Count; i++)
+                {
+                    if (cells[i].IsAlive) count++;
+                }
+                return count;
+            }
+        }
 
         void Start()
         {
@@ -43,6 +55,7 @@ namespace Michael {
             }
             SpawnCellsAtChance();
             TransitionCells();
+            GameManager.Instance.UpdateStats();
         }
         public void SpawnCellsAtChance() => ProcessMap(gameSettings.RandomLifeChance);
         public void CheckNeighbors() => ProcessMap(gameSettings.CheckNeighbors);

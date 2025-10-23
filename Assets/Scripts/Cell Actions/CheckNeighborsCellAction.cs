@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Michael
 {
+    /// <summary>
+    /// A cell action that checks for neighboring cells and updates the cell's neighbor list.
+    /// </summary>
     [CreateAssetMenu(fileName = "Check Neighbors", menuName = "Michael/Cell Actions/Check Neighbors")]
     public class CheckNeighborsCellAction : ICellAction
     {

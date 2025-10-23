@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a53158a27e7c9548b9963ca2fe7c700, type: 3}
   m_Name: Random Life Chance
   m_EditorClassIdentifier: 
-  aliveChance: 1
+  AliveChance: 0.5

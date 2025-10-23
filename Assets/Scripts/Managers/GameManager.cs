@@ -10,6 +10,9 @@ namespace Michael
         [SerializeField] float gameplayTime = 0f;
         bool hasTransitioned = true;
 
+        int generation = 0;
+        public int Generation => generation;
+
         public override void Awake()
         {
             base.Awake();
@@ -34,6 +37,7 @@ namespace Michael
                 Map.Instance.CheckNeighbors();
                 Map.Instance.ChangeCellState();
                 Map.Instance.TransitionCells();
+                UpdateStats();
             }
 
             // reset for next lifecycle
@@ -49,13 +53,13 @@ namespace Michael
             hasTransitioned = true;
             Map.Instance.ResetMap();
         }
-
-        public void Play()
+        #region Game Speed
+        public void ResetGameSpeed()
         {
             Time.timeScale = 1f;
         }
 
-        public void Pause()
+        public void PauseGameSpeed()
         {
             Time.timeScale = 0f;
         }
@@ -65,5 +69,22 @@ namespace Michael
             Time.timeScale = speed;
             return Time.timeScale;
         }
+        #endregion
+        #region Stats
+        public void UpdateStats()
+        {
+            UpdateAliveCellStat();
+            UpdateGenerationStat();
+        }
+        void UpdateAliveCellStat()
+        {
+            Stats.Instance.OnStatUpdated?.Invoke(Stats.StatType.AliveCells, Map.Instance.AliveCellsCount.ToString());
+        }
+        void UpdateGenerationStat()
+        {
+            generation++;
+            Stats.Instance.OnStatUpdated?.Invoke(Stats.StatType.Generation, generation.ToString());
+        }
+        #endregion
     }
 }

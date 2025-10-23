@@ -11,13 +11,13 @@ namespace Michael
         {
             GameManager.Instance.ResetMap();
         }
-        public void Pause()
+        public void PauseGameSpeed()
         {
-            GameManager.Instance.Pause();
+            GameManager.Instance.PauseGameSpeed();
         }
-        public void Play()
+        public void ResetGameSpeed()
         {
-            GameManager.Instance.Play();
+            GameManager.Instance.ResetGameSpeed();
         }
         public void SetGameSpeed(float speed)
         {

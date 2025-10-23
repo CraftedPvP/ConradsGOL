@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Michael
 {
+    /// <summary>
+    /// A cell action that changes the future state of a cell based on its live neighbors.
+    /// </summary>
     [CreateAssetMenu(fileName = "Change State", menuName = "Michael/Cell Actions/Change State")]
     public class ChangeStateCellAction : ICellAction
     {

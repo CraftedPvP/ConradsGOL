@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb4dd18ebc9ff34c96d03771b642d78, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  mapSize: {x: 1, y: 1}
+  mapSize: {x: 10, y: 10}
   livingLife: 2
   transitionTime: 0.3
   cellPrefab: {fileID: 8442364360499376307, guid: f6b8f63bf6d0bc340a787abf80cede01, type: 3}
