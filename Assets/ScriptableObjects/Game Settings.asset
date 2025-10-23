@@ -20,6 +20,9 @@ MonoBehaviour:
   AliveColor: {r: 0.8792453, g: 0.6849573, b: 0.27704516, a: 1}
   DeadColor: {r: 0.22264141, g: 0.22264141, b: 0.22264141, a: 1}
   maxCells: 2000
+  cellLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   randomLifeChance: {fileID: 11400000, guid: d37773dbc5299cc44aa9b617261e7243, type: 2}
   changeState: {fileID: 11400000, guid: dd6e889eb13ca2a42bbd892abf416db8, type: 2}
   checkNeighbors: {fileID: 11400000, guid: 2f66e6cd556ccf545b0cc342f0bea977, type: 2}

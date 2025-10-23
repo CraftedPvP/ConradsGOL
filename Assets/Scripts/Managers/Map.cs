@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Michael {
     /// <summary>
@@ -29,9 +30,50 @@ namespace Michael {
             }
         }
 
+        Camera mainCamera;
+
         void Start()
         {
+            mainCamera = Camera.main;
+            PlayerController.Instance.Controls.Game.Select.performed += OnPlayerSelectGrid;
+
             ResetMap();
+        }
+
+        void OnPlayerSelectGrid(InputAction.CallbackContext context)
+        {
+            if (GameManager.Instance.IsGameRunning) {
+                Debug.LogWarning("Game is running. Cannot select spawn cell.");
+                return;
+            }
+
+            // Get mouse position in world space
+            Vector2 mouseScreenPos = PlayerController.Instance.Controls.Game.SelectPos.ReadValue<Vector2>();
+            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+
+            // clamp to nearest grid position
+            float cellSize = gameSettings.CellSize;
+            Vector3 clampedPos = new Vector3(
+                Mathf.Floor(mouseWorldPos.x / cellSize) * cellSize + cellSize / 2f,
+                Mathf.Floor(mouseWorldPos.y / cellSize) * cellSize + cellSize / 2f,
+                0f);
+
+            // check if cell exists at that position
+            Collider2D cellCollider = Physics2D.OverlapPoint(clampedPos, gameSettings.CellLayerMask);
+            // if no cell exists, spawn a cell
+            if (!cellCollider)
+            {
+                Cell newCell = CellSpawner.Instance.Get();
+                newCell.transform.position = clampedPos;
+                cells.Add(newCell);
+                newCell.FutureIsAlive = true;
+                gameSettings.TransitionState.Execute(newCell);
+                return;
+            }
+            // if a cell exists, kill the cell
+            Cell existingCell = cellCollider.GetComponent<Cell>();
+            existingCell.FutureIsAlive = false;
+            gameSettings.TransitionState.Execute(existingCell);
         }
 
         void ProcessMap(ICellAction action)
@@ -66,11 +108,15 @@ namespace Michael {
         /// </summary>
         public void ResetMap()
         {
+            ClearMap();
+            SpawnCells();
+            OnMapReset?.Invoke();
+        }
+        public void ClearMap()
+        {
             for (int i = 0; i < cells.Count; i++)
                 CellSpawner.Instance.Return(cells[i]);
             cells.Clear();
-            SpawnCells();
-            OnMapReset?.Invoke();
         }
     }
 }

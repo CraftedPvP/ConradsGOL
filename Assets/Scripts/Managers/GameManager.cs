@@ -12,12 +12,17 @@ namespace Michael
 
         int generation = 0;
         public int Generation => generation;
+        bool isGameRunning = false;
+        public bool IsGameRunning => isGameRunning;
 
         public override void Awake()
         {
             base.Awake();
         }
-            
+        void Start()
+        {
+            gameObject.SetActive(false);
+        }
         void Update()
         {
             ProcessLifecycleTime();
@@ -52,6 +57,23 @@ namespace Michael
             gameplayTime = 0f;
             hasTransitioned = true;
             Map.Instance.ResetMap();
+        }
+        public void StartSimulation()
+        {
+            isGameRunning = true;
+            gameplayTime = 0f;
+            hasTransitioned = false;
+            gameObject.SetActive(true);
+            // toggle game ui on via event
+        }
+        public void StopSimulation()
+        {
+            isGameRunning = false;
+            gameplayTime = 0f;
+            hasTransitioned = false;
+            gameObject.SetActive(false);
+            Map.Instance.ClearMap();
+            // toggle game ui off via event
         }
         #region Game Speed
         public void ResetGameSpeed()

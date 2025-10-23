@@ -31,6 +31,9 @@ namespace Michael {
         [SerializeField] int maxCells = 2000;
         public int MaxCells => maxCells;
 
+        [SerializeField] LayerMask cellLayerMask;
+        public LayerMask CellLayerMask => cellLayerMask;
+
         [Header("Cell Actions")]
         [Tooltip("Action to set cell's life state randomly")]
         [SerializeField] ICellAction randomLifeChance;

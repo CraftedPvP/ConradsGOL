@@ -8,7 +8,6 @@ namespace Michael
     [CreateAssetMenu(fileName = "Check Neighbors", menuName = "Michael/Cell Actions/Check Neighbors")]
     public class CheckNeighborsCellAction : ICellAction
     {
-        [SerializeField] LayerMask cellLayerMask;
         public static Vector2[] NeighborDirections = new Vector2[]
         { // starts from top and goes clockwise
             Vector2.up,
@@ -38,7 +37,7 @@ namespace Michael
                     NeighborDirections[i],
                     // 1.8f is padding to ensure we hit the diagonal neighbor
                     GameManager.Instance.GameSettings.CellSize * 1.8f,
-                    cellLayerMask
+                    GameManager.Instance.GameSettings.CellLayerMask
                 );
                 if (hits.Length == 0)
                 {

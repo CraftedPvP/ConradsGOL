@@ -127,8 +127,10 @@ namespace Michael
             LeanTween.value(gameObject, ChangeColor, aliveColor, deadColor, GameManager.Instance.GameSettings.TransitionTime);
 
             // Animate scale from CellSize to 0
-            LeanTween.scale(spriteObject, Vector3.zero, GameManager.Instance.GameSettings.TransitionTime);
+            LeanTween.scale(spriteObject, Vector3.zero, GameManager.Instance.GameSettings.TransitionTime)
+                .setOnComplete(ReturnToPool);
         }
         void ChangeColor(Color targetColor) => spriteRenderer.color = targetColor;
+        void ReturnToPool() => CellSpawner.Instance.Return(this);
     }
 }

@@ -24,5 +24,13 @@ namespace Michael
             // this returns a clamped float. just read it if we have a text display to show current speed
             GameManager.Instance.SetGameSpeed(speed);
         }
+        public void StopSimulation()
+        {
+            GameManager.Instance.StopSimulation();
+        }
+        public void StartSimulation()
+        {
+            GameManager.Instance.StartSimulation();
+        }
     }
 }
