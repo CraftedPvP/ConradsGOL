@@ -39,6 +39,7 @@ namespace Michael
             if (!IsAnimated)
             {
                 canvasGroup.alpha = show ? 1 : 0;
+                rectTransform.anchoredPosition = new Vector2(show ? xOffset : -xOffset, rectTransform.anchoredPosition.y);
                 return;
             }
             LeanTween.alphaCanvas(canvasGroup, show ? 1 : 0, tweenTime).setEaseInOutSine();
