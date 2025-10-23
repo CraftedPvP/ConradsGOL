@@ -23,18 +23,19 @@ namespace Michael
                 return instance;
             }
         }
+        [SerializeField] bool keepAliveOnLoad = true;
         public virtual void Awake()
         {
-            if (instance == null)
-            {
-                instance = this as T;
-                transform.SetParent(null);
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
+            if(instance)
+            {// don't destroy object as some developers like to hard reference singletons in scenes
                 gameObject.SetActive(false);
+                return;
             }
+
+            instance = this as T;
+            if (!keepAliveOnLoad) return;
+            transform.SetParent(null);
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ae51137bab4a147ab85a4e40d0d04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepAliveOnLoad: 0
   stats:
   - type: 1
     text: {fileID: 5491502769719920167}
