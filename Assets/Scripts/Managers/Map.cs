@@ -40,7 +40,17 @@ namespace Michael {
             mainCamera = Camera.main;
             PlayerController.Instance.Controls.Game.Select.performed += OnPlayerSelectGrid;
             OnCellDeath += HandleCellDeath;
+            GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
         }
+
+        void OnGameStateChanged(GameState state)
+        {
+            if (state == GameState.Running)
+                PlayerController.Instance.Controls.Game.Select.performed -= OnPlayerSelectGrid;
+            else
+                PlayerController.Instance.Controls.Game.Select.performed += OnPlayerSelectGrid;
+        }
+
         void Update()
         {
             CheckToSpawnCell();
@@ -52,7 +62,8 @@ namespace Michael {
         /// </summary>
         void CheckToSpawnCell()
         {
-            if (EventSystem.current.IsPointerOverGameObject()) {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
                 // fixes a bug where clicking on UI would still spawn a cell after exiting off the UI
                 playerWantsToSpawnCell = false;
                 return;
@@ -73,10 +84,7 @@ namespace Michael {
             // if no cell exists, spawn a cell
             if (!cellCollider)
             {
-                Cell newCell = CellSpawner.Instance.Get();
-                newCell.transform.position = clampedPos;
-                cells.Add(newCell);
-                newCell.FutureIsAlive = true;
+                Cell newCell = SpawnCellAtPosition(clampedPos);
                 gameSettings.TransitionState.Execute(newCell);
                 return;
             }
@@ -84,6 +92,14 @@ namespace Michael {
             Cell existingCell = cellCollider.GetComponent<Cell>();
             existingCell.FutureIsAlive = false;
             gameSettings.TransitionState.Execute(existingCell);
+        }
+        public Cell SpawnCellAtPosition(Vector3 position)
+        {
+            Cell newCell = CellSpawner.Instance.Get();
+            newCell.transform.position = position;
+            cells.Add(newCell);
+            newCell.FutureIsAlive = true;
+            return newCell;
         }
 
         void HandleCellDeath(Cell cell)
@@ -111,10 +127,19 @@ namespace Michael {
             {
                 if (cells[i]) action.Execute(cells[i]);
             }
+            action.PostExecute();
         }
-        public void CheckNeighbors() => ProcessMap(gameSettings.CheckNeighbors);
-        public void ChangeCellState() => ProcessMap(gameSettings.ChangeState);
+        public void ProcessLifecycle()
+        {
+            CheckNeighbors();
+            ChangeCellState();
+            ExpandCells();
+            TransitionCells();
+        }
+        void CheckNeighbors() => ProcessMap(gameSettings.CheckNeighbors);
+        void ChangeCellState() => ProcessMap(gameSettings.ChangeState);
         public void TransitionCells() => ProcessMap(gameSettings.TransitionState);
+        void ExpandCells() => ProcessMap(gameSettings.Expand);
         public void ClearMap()
         {
             for (int i = 0; i < cells.Count; i++)

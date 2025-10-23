@@ -55,9 +55,7 @@ namespace Michael
             if (!hasTransitioned && gameplayTime < oneLifecycle)
             {
                 hasTransitioned = true;
-                Map.Instance.CheckNeighbors();
-                Map.Instance.ChangeCellState();
-                Map.Instance.TransitionCells();
+                Map.Instance.ProcessLifecycle();
                 IncrementGeneration();
                 CallUpdateStats();
             }
@@ -97,7 +95,7 @@ namespace Michael
             hasTransitioned = false;
 
             Map.Instance.ClearMap();
-            // toggle game ui off via event
+            CallUpdateStats();
         }
         #region Game Speed
         public void ResetGameSpeed()

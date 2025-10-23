@@ -18,5 +18,9 @@ namespace Michael
             cell.FutureIsAlive = Random.value < AliveChance;
             // Debug.Log($"Cell at {cell.name} set to {(cell.FutureIsAlive ? "Alive" : "Dead")}");
         }
+
+        public override void PostExecute()
+        {
+        }
     }
 }

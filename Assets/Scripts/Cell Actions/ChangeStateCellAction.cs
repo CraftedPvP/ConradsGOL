@@ -26,5 +26,9 @@ namespace Michael
             // Any live cell with more than three live neighbors dies, as if by overpopulation.
             else if (liveNeighbors > 3) cell.FutureIsAlive = false;
         }
+
+        public override void PostExecute()
+        {
+        }
     }
 }

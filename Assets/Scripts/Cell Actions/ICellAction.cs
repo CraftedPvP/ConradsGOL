@@ -6,6 +6,14 @@ namespace Michael
 {
     public abstract class ICellAction : ScriptableObject
     {
+        /// <summary>
+        /// called for each living cell in the map
+        /// </summary>
+        /// <param name="cell">cell being processed</param>
         public abstract void Execute(Cell cell);
+        /// <summary>
+        /// called after all cells have been processed
+        /// </summary>
+        public abstract void PostExecute();
     }
 }

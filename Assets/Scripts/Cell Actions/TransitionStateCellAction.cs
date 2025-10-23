@@ -12,5 +12,9 @@ namespace Michael
         {
             cell.TransitionState();
         }
+
+        public override void PostExecute()
+        {
+        }
     }
 }

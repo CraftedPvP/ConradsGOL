@@ -28,15 +28,15 @@ namespace Michael
         public Cell[] CheckNeighbors(Cell cell)
         {
             // create a raycast in set directions to check for neighbors
-            Cell[] neighbors = new Cell[8];
+            Cell[] neighbors = new Cell[NeighborDirections.Length];
             for (int i = 0; i < NeighborDirections.Length; i++)
             {
                 Vector3 offset = NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize / 2);
                 RaycastHit2D[] hits = Physics2D.RaycastAll(
                     cell.transform.position + offset,
                     NeighborDirections[i],
-                    // 1.8f is padding to ensure we hit the diagonal neighbor
-                    GameManager.Instance.GameSettings.CellSize * 1.8f,
+                    // raycast padding to ensure we hit the diagonal neighbor
+                    GameManager.Instance.GameSettings.CellSize * GameManager.Instance.GameSettings.RaycastPadding,
                     GameManager.Instance.GameSettings.CellLayerMask
                 );
                 if (hits.Length == 0)
@@ -57,6 +57,10 @@ namespace Michael
                 }
             }
             return neighbors;
+        }
+
+        public override void PostExecute()
+        {
         }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Michael
 {
+    [SelectionBase]
     public class Cell : MonoBehaviour
     {
         [SerializeField] bool isAlive;
