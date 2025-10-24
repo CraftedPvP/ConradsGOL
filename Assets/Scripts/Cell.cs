@@ -153,7 +153,22 @@ namespace Michael
 
         internal void ChangeSize(float newSize)
         {
+            // Store old size for grid calculation
+            float oldSize = transform.localScale.x;
+
+            // Handle edge case where old size is zero
+            if (Mathf.Approximately(oldSize, 0f)) oldSize = newSize;
+
+            Vector3 pos = transform.position;
+            int gridX = Mathf.FloorToInt(pos.x / oldSize);
+            int gridY = Mathf.FloorToInt(pos.y / oldSize);
+
+            // Set new scale
             transform.localScale = Vector3.one * newSize;
+
+            // Center the cell in its grid cell
+            float offset = newSize / 2f;
+            transform.position = new Vector3(gridX * newSize + offset, gridY * newSize + offset, pos.z);
         }
     }
 }
