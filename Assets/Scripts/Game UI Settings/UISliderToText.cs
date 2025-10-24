@@ -9,9 +9,9 @@ namespace Michael
     {
         public Action<float> OnValueChanged;
         [SerializeField] TextMeshProUGUI text;
-        [SerializeField] Slider slider;
+        [SerializeField] protected Slider slider;
         [SerializeField] string formatString = "{0}";
-        void Start()
+        protected virtual void Start()
         {
             slider.onValueChanged.AddListener(UpdateText);
             UpdateText(slider.value);

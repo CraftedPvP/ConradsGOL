@@ -28,8 +28,10 @@ namespace Michael {
         public Color AliveColor = Color.yellow;
         public Color DeadColor = Color.gray;
 
-        [SerializeField] int maxCells = 2000;
-        public int MaxCells => maxCells;
+        [Range(50,1000)]
+        public int MinCells = 250;
+        [Range(250,3000)]
+        public int MaxCells = 2000;
 
         [SerializeField] LayerMask cellLayerMask;
         public LayerMask CellLayerMask => cellLayerMask;
@@ -58,5 +60,11 @@ namespace Michael {
         [Tooltip("Action to check if cell can expand to neighbors")]
         [SerializeField] ICellAction expand;
         public ICellAction Expand => expand;
+
+        void OnValidate()
+        {
+            if (MinCells > MaxCells)
+                MinCells = MaxCells;
+        }
     }
 }
