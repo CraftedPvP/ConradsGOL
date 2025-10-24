@@ -9,14 +9,14 @@ Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a 
 
 ## Requirements
 
-- **Unity Version:** 6000.1.58f2 (LTS)
+- **Unity Version:** 6000.0.58f2 (LTS)
 - **Platform:** Windows
 
 ## Getting Started
 
 1. **Clone or Download the Repository**
 2. **Open the Project in Unity Hub**
-	- Select Unity version 6000.1.58f2 (or newer 6000 LTS if compatible)
+	- Select Unity version 6000.0.58f2 (or newer 6000 LTS if compatible)
 	- Open the project folder (`ConradsGOL`)
 3. **Open the Main Scene**
 	- Navigate to `Assets/Scenes/Game.unity`
@@ -46,4 +46,4 @@ Gemini AI for Game Logo
 This project is for educational and personal use.
 
 ---
-*Created with Unity 6000.1.58f2 for Windows platform.*
+*Created with Unity 6000.0.58f2 for Windows platform.*
