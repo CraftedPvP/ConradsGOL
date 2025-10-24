@@ -12,13 +12,26 @@ namespace Michael
         public static Action<Color> OnColorChanged;
         [SerializeField] FlexibleColorPicker flexibleColorPicker;
         [SerializeField] Image image;
+
+        void OnDisable()
+        {
+            // turn it off when Game UI is closed
+            flexibleColorPicker.gameObject.SetActive(false);
+        }
         void Start()
         {
+            // fixes a bug where the image's color changes upon first click
+            flexibleColorPicker.startingColor = GameManager.Instance.GameSettings.AliveColor;
+            // 2nd set is to set the color from our settings
+            flexibleColorPicker.color = flexibleColorPicker.startingColor;
             flexibleColorPicker.onColorChange.AddListener(OnColorChanged_Event);
-            flexibleColorPicker.gameObject.SetActive(false);
-            
-            flexibleColorPicker.color = GameManager.Instance.GameSettings.AliveColor;
+            Invoke(nameof(CloseColorPicker),0.2f); // allows for initialization
+
             image.color = flexibleColorPicker.color;
+        }
+        void CloseColorPicker()
+        {
+            flexibleColorPicker.gameObject.SetActive(false);
         }
 
         void OnColorChanged_Event(Color color)

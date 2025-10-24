@@ -30,6 +30,8 @@ namespace Michael
             if (ShowOnStart) Show();
             else Hide();
             isAnimated = tempIsAnimated;
+            
+            // this is to initialize LeanTween
             LeanTween.value(gameObject, 0, 1, tweenTime);
         }
 
@@ -42,13 +44,19 @@ namespace Michael
             {
                 canvasGroup.alpha = show ? 1 : 0;
                 rectTransform.anchoredPosition = new Vector2(show ? xOffset : -xOffset, rectTransform.anchoredPosition.y);
+                gameObject.SetActive(show);
                 return;
             }
+            if(show) gameObject.SetActive(true);
             LeanTween.alphaCanvas(canvasGroup, show ? 1 : 0, tweenTime).setEaseInOutSine();
             
             Vector2 target = new Vector2(show ? xOffset : -xOffset, rectTransform.anchoredPosition.y);
             LeanTween.value(gameObject, rectTransform.anchoredPosition, target, tweenTime)
-                .setOnUpdate((Vector2 val) => rectTransform.anchoredPosition = val).setEaseInOutSine();
+                .setOnUpdate((Vector2 val) => rectTransform.anchoredPosition = val).setEaseInOutSine()
+                .setOnComplete(() =>
+                {
+                    if (!show) gameObject.SetActive(false);
+                });
         }
 
     }
