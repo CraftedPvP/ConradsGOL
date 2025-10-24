@@ -31,7 +31,8 @@ namespace Michael
             Cell[] neighbors = new Cell[NeighborDirections.Length];
             for (int i = 0; i < NeighborDirections.Length; i++)
             {
-                Vector3 offset = NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize / 2);
+                // put offset slightly before the edge of the cell
+                Vector3 offset = NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize * .45f);
                 RaycastHit2D[] hits = Physics2D.RaycastAll(
                     cell.transform.position + offset,
                     NeighborDirections[i],
