@@ -9,6 +9,10 @@ namespace Michael {
         // [SerializeField] Vector2Int mapSize = new Vector2Int(10, 10);
         // public Vector2Int MapSize => mapSize;
 
+        [Header("Tutorial")]
+        [SerializeField] string tutorialKey = "HasCompletedTutorial";
+        public string TutorialKey => tutorialKey;
+
         [Header("Lifecycle")]
         [Tooltip("Time in seconds before a living cell changes its state")]
         [SerializeField] float livingLife = 0.5f;
