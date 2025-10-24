@@ -17,6 +17,7 @@ namespace Michael {
 
         [Header("Game Elements")]
         [SerializeField] List<Cell> cells;
+        public List<Cell> Cells => cells;
         public int CellsInMapCount => cells.Count;
         public int AliveCellsCount
         {
@@ -41,20 +42,8 @@ namespace Michael {
             PlayerController.Instance.Controls.Game.Select.performed += OnPlayerSelectGrid;
             OnCellDeath += HandleCellDeath;
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
-            ColorPicker.OnColorChanged += OnColorChanged;
-        }
-        void OnDestroy()
-        {
-            ColorPicker.OnColorChanged -= OnColorChanged;
         }
 
-        void OnColorChanged(Color color)
-        {
-            foreach (var cell in cells)
-            {
-                if (cell.IsAlive) cell.ChangeColor(color);
-            }
-        }
         void OnGameStateChanged(GameState state)
         {
             if (state == GameState.Running)
@@ -96,8 +85,9 @@ namespace Michael {
             // if no cell exists, spawn a cell
             if (!cellCollider)
             {
-                Cell newCell = SpawnCellAtPosition(clampedPos);
-                if(newCell == null) return;
+                Cell newCell = CellSpawner.Instance.SpawnCellAtPosition(clampedPos);
+                if (newCell == null) return;
+                cells.Add(newCell);
                 gameSettings.TransitionState.Execute(newCell);
                 return;
             }
@@ -106,15 +96,14 @@ namespace Michael {
             existingCell.FutureIsAlive = false;
             gameSettings.TransitionState.Execute(existingCell);
         }
-        public Cell SpawnCellAtPosition(Vector3 position)
-        {
-            Cell newCell = CellSpawner.Instance.GetWithinLimits();
-            if (newCell == null) return null;
 
-            newCell.transform.position = position;
-            cells.Add(newCell);
-            newCell.FutureIsAlive = true;
-            return newCell;
+        internal void AddCellsInPositions(HashSet<Vector3> cellsThatNeedSpawning)
+        {
+            foreach (var pos in cellsThatNeedSpawning){
+                Cell newCell = CellSpawner.Instance.SpawnCellAtPosition(pos);
+                if (newCell == null) continue;
+                cells.Add(newCell);
+            }
         }
 
         void HandleCellDeath(Cell cell)
@@ -161,7 +150,6 @@ namespace Michael {
                 CellSpawner.Instance.Return(cells[i]);
             cells.Clear();
         }
-
         // sample code if we're using grid-based spawns
         // void SpawnCells()
         // {

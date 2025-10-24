@@ -14,7 +14,7 @@ namespace Michael
 
             // Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
             if (!cell.IsAlive)
-            {
+            { // this branch is never called but is kept if ever we changed how we retain cells in the map
                 if (liveNeighbors == 3) cell.FutureIsAlive = true;
                 return;
             }

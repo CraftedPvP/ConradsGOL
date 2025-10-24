@@ -1,12 +1,14 @@
+using UnityEngine;
+
 namespace Michael
 {
-    public interface IUserInterface
+    public abstract class IUserInterface : MonoBehaviour
     {
         bool ShowOnStart { get; }
         bool IsAnimated { get; }
-        void Show();
-        void Hide();
-        void Toggle();
-        void Toggle(bool show);
+        public abstract void Show();
+        public abstract void Hide();
+        public abstract void Toggle();
+        public abstract void Toggle(bool show);
     }
 }

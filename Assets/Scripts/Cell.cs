@@ -150,5 +150,10 @@ namespace Michael
             CellSpawner.Instance.Return(this);
             Map.Instance.OnCellDeath?.Invoke(this);
         }
+
+        internal void ChangeSize(float newSize)
+        {
+            transform.localScale = Vector3.one * newSize;
+        }
     }
 }

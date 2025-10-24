@@ -22,8 +22,8 @@ namespace Michael {
         [SerializeField] Cell cellPrefab;
         public Cell CellPrefab => cellPrefab;
 
-        [SerializeField] float cellSize = 1f;
-        public float CellSize => cellSize;
+        [Range(1f, 3f)]
+        public float CellSize = 1f;
 
         public Color AliveColor = Color.yellow;
         public Color DeadColor = Color.gray;

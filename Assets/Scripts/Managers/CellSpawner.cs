@@ -60,5 +60,14 @@ namespace Michael
             return newCell;
         }
 
+        public Cell SpawnCellAtPosition(Vector3 position)
+        {
+            Cell newCell = GetWithinLimits();
+            if (newCell == null) return null;
+
+            newCell.transform.position = position;
+            newCell.FutureIsAlive = true;
+            return newCell;
+        }
     }
 }

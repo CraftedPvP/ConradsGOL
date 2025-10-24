@@ -626,6 +626,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Alive Color
       objectReference: {fileID: 0}
+    - target: {fileID: 5657938867128877507, guid: 3ef02c75ccb309d45bb0164b8bef05f5, type: 3}
+      propertyPath: activeState
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6938632076051409909, guid: 3ef02c75ccb309d45bb0164b8bef05f5, type: 3}
       propertyPath: m_Name
       value: Color Picker

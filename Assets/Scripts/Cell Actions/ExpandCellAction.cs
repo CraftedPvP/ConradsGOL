@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Michael
 {
     /// <summary>
-    /// This expands to neighboring empty / dead <see cref="Cell"/>s.
+    /// This expands to neighboring empty / dead <see cref="Cell"/>s if it exactly matches 3 live neighbors.
     /// </summary>
     [CreateAssetMenu(fileName = "Expand", menuName = "Michael/Cell Actions/Expand")]
     public class ExpandCellAction : ICellAction
@@ -56,13 +56,15 @@ namespace Michael
         /// <returns>true, if can expand into the empty cell</returns>
         bool CheckIfMetRequirements(int directionIndex, Vector3 emptyCellPos)
         {
-            int minRequirementForExpansion = 3;
+            int exactRequirementForExpansion = 3;
             int liveNeighborCount = 0;
             RaycastHit2D[] raycastHits = new RaycastHit2D[1];
+
+            // in the loop below, we want to check if the empty cell has exactly N live neighbors
+            // if it goes beyond N neighbors, we can exit early as it no longer meets the requirement
+
             // create a raycast in set directions to check for neighbors
-            for (int i = 0;
-                i < CheckNeighborsCellAction.NeighborDirections.Length &&
-                liveNeighborCount < minRequirementForExpansion; i++)
+            for (int i = 0; i < CheckNeighborsCellAction.NeighborDirections.Length; i++)
             {
                 Vector3 offset = CheckNeighborsCellAction.NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize / 2);
                 int hits = Physics2D.RaycastNonAlloc(
@@ -73,10 +75,16 @@ namespace Michael
                     GameManager.Instance.GameSettings.CellSize * GameManager.Instance.GameSettings.RaycastPadding,
                     GameManager.Instance.GameSettings.CellLayerMask
                 );
-                if (hits > 0) liveNeighborCount++;
+                if (hits > 0) {
+                    liveNeighborCount++;
+                 
+                    // we can put the condition in the for loop but we kept it here for clarity
+                    if (liveNeighborCount > exactRequirementForExpansion) break;
+                }
             }
+            
             // Debug.Log("live count for empty cell at " + emptyCellPos + " is " + liveNeighborCount);
-            return liveNeighborCount >= minRequirementForExpansion;
+            return liveNeighborCount == exactRequirementForExpansion;
         }
 
         public override void PostExecute()
@@ -85,8 +93,7 @@ namespace Michael
         }
         void SpawnNeededCells()
         {
-            foreach (var pos in CellsThatNeedSpawning)
-                Map.Instance.SpawnCellAtPosition(pos);
+            Map.Instance.AddCellsInPositions(CellsThatNeedSpawning);
             CellsThatNeedSpawning.Clear();
         }
     }

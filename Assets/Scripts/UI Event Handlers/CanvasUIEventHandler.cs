@@ -7,7 +7,7 @@ namespace Michael
     {
         public void ToggleGameUIPanel(bool willShow)
         {
-            GameCanvasUITween.Instance.Toggle(willShow);
+            GameUIManager.Instance.Toggle(willShow);
         }
     }
 }

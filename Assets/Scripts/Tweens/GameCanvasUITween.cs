@@ -2,7 +2,10 @@ using UnityEngine;
 
 namespace Michael
 {
-    public class GameCanvasUITween : Singleton<GameCanvasUITween>, IUserInterface
+    /// <summary>
+    /// Handles tweening for game canvas UI elements
+    /// </summary>
+    public class GameCanvasUITween : IUserInterface
     {
         [Range(.1f, .5f)]
         [SerializeField] float tweenTime = 0.35f;
@@ -15,9 +18,8 @@ namespace Michael
         [SerializeField] bool isAnimated = true;
         public bool IsAnimated => isAnimated;
         RectTransform rectTransform;
-        public override void Awake()
+        public void Awake()
         {
-            base.Awake();
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
         }
@@ -31,10 +33,10 @@ namespace Michael
             LeanTween.value(gameObject, 0, 1, tweenTime);
         }
 
-        public void Hide() => Toggle(false);
-        public void Show() => Toggle(true);
-        public void Toggle() => Toggle(canvasGroup.alpha == 0);
-        public void Toggle(bool show)
+        public override void Hide() => Toggle(false);
+        public override void Show() => Toggle(true);
+        public override void Toggle() => Toggle(canvasGroup.alpha == 0);
+        public override void Toggle(bool show)
         {
             if (!IsAnimated)
             {
