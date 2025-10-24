@@ -1,6 +1,8 @@
 
 # Conrad's: Game of Life
 
+![Game Logo](Assets/Sprites/Game%20logo.png)
+
 ## Overview
 
 Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a classic cellular automaton. This project is designed for experimentation, learning, and fun with the rules of life and evolution in a grid-based simulation.
@@ -36,10 +38,12 @@ Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a 
 ## Credits
 Sound Effect by <a href="https://pixabay.com/users/freesoundeffects-48326557/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=289742">freesoundeffects</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=289742">Pixabay</a>
 Sound Effect by <a href="https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=293341">Universfield</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=293341">Pixabay</a>
+Music by <a href="https://pixabay.com/users/backgroundmusicforvideos-46459014/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=301239">Maksym Malko</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=301239">Pixabay</a>
+Gemini AI for Game Logo
 
 ## License
 
-This project is for educational and personal use. See LICENSE file if available.
+This project is for educational and personal use.
 
 ---
 *Created with Unity 6000.1.58f2 for Windows platform.*
