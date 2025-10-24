@@ -66,13 +66,13 @@ namespace Michael
             // create a raycast in set directions to check for neighbors
             for (int i = 0; i < CheckNeighborsCellAction.NeighborDirections.Length; i++)
             {
-                Vector3 offset = CheckNeighborsCellAction.NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize / 2);
+                // put offset slightly before the edge of the cell
+                Vector3 offset = CheckNeighborsCellAction.NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize * .45f);
                 int hits = Physics2D.RaycastNonAlloc(
                     emptyCellPos + offset,
                     CheckNeighborsCellAction.NeighborDirections[i],
                     raycastHits,
-                    // raycast padding to ensure we hit the diagonal neighbor
-                    GameManager.Instance.GameSettings.CellSize * GameManager.Instance.GameSettings.RaycastPadding,
+                    GameManager.Instance.GameSettings.CellSize * .5f,
                     GameManager.Instance.GameSettings.CellLayerMask
                 );
                 if (hits > 0) {

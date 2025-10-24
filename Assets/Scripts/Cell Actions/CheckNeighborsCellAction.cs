@@ -37,7 +37,7 @@ namespace Michael
                     cell.transform.position + offset,
                     NeighborDirections[i],
                     // raycast padding to ensure we hit the diagonal neighbor
-                    GameManager.Instance.GameSettings.CellSize * GameManager.Instance.GameSettings.RaycastPadding,
+                    GameManager.Instance.GameSettings.CellSize * .5f,
                     GameManager.Instance.GameSettings.CellLayerMask
                 );
                 if (hits.Length == 0)

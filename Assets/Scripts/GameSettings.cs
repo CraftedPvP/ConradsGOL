@@ -40,10 +40,6 @@ namespace Michael {
         [SerializeField] LayerMask cellLayerMask;
         public LayerMask CellLayerMask => cellLayerMask;
 
-        [Range(1, 2f)]
-        [SerializeField] float raycastPadding = 1.25f;
-        public float RaycastPadding => raycastPadding;
-
         [Header("Cell Actions")]
         [Tooltip("Action to set cell's life state randomly")]
         [SerializeField] ICellAction randomLifeChance;
