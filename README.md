@@ -7,14 +7,14 @@ Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a 
 
 ## Requirements
 
-- **Unity Version:** 2022.3.62f1 (LTS)
+- **Unity Version:** 6000.1.58f2 (LTS)
 - **Platform:** Windows
 
 ## Getting Started
 
 1. **Clone or Download the Repository**
 2. **Open the Project in Unity Hub**
-	- Select Unity version 2022.3.62f1 (or newer 2022.3 LTS if compatible)
+	- Select Unity version 6000.1.58f2 (or newer 6000 LTS if compatible)
 	- Open the project folder (`ConradsGOL`)
 3. **Open the Main Scene**
 	- Navigate to `Assets/Scenes/Game.unity`
@@ -25,8 +25,7 @@ Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a 
 
 - Classic Conway's Game of Life rules
 - Interactive grid
-- Customizable settings (grid size, speed, etc.)
-- Modern Unity UI
+- Customizable settings (cell size, speed, max cell count)
 
 ## Folder Structure
 
@@ -39,4 +38,4 @@ Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a 
 This project is for educational and personal use. See LICENSE file if available.
 
 ---
-*Created with Unity 2022.3.62f1 for Windows platform.*
+*Created with Unity 6000.1.58f2 for Windows platform.*
