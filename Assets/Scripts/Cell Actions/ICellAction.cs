@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Michael
 {
+    /// <code>
+    /// [CreateAssetMenu(fileName = "Action Name", menuName = "Michael/Cell Action/Name")]
+    /// </code>
     public abstract class ICellAction : ScriptableObject
     {
         /// <summary>

@@ -33,6 +33,10 @@ Conrad's: Game of Life is a Unity project implementing Conway's Game of Life, a 
 - `ProjectSettings/` — Unity project settings
 - `Packages/` — Unity package dependencies
 
+## Credits
+Sound Effect by <a href="https://pixabay.com/users/freesoundeffects-48326557/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=289742">freesoundeffects</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=289742">Pixabay</a>
+Sound Effect by <a href="https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=293341">Universfield</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=293341">Pixabay</a>
+
 ## License
 
 This project is for educational and personal use. See LICENSE file if available.
