@@ -6,6 +6,7 @@ namespace Michael
     public class CellSpawner : Singleton<CellSpawner>
     {
         [SerializeField] Transform cellContainer;
+        [SerializeField] Sprite[] cellSprites;
         // The pool holds plain GameObjects (you can swap this for any component type).
         IObjectPool<Cell> pool;
         public int PoolCount => pool.CountInactive;
@@ -66,6 +67,7 @@ namespace Michael
             if (newCell == null) return null;
 
             newCell.transform.position = position;
+            newCell.SetSprite(cellSprites[Random.Range(0, cellSprites.Length)]);
             newCell.FutureIsAlive = true;
             return newCell;
         }

@@ -173,5 +173,6 @@ namespace Michael
             // sometimes the spriteObject scale gets messed up, so we reset it
             spriteObject.transform.localScale = Vector3.one;
         }
+        public void SetSprite(Sprite newSprite) => spriteRenderer.sprite = newSprite;
     }
 }
