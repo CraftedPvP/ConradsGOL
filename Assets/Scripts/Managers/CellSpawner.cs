@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -12,6 +10,14 @@ namespace Michael
         IObjectPool<Cell> pool;
         public int PoolCount => pool.CountInactive;
         public Cell Get() => pool.Get();
+        public Cell GetWithinLimits() {
+            if (Map.Instance.CellsInMapCount < GameManager.Instance.GameSettings.MaxCells)
+                return pool.Get();
+            else{
+                Debug.LogWarning("Max cell limit reached, cannot spawn more cells.");
+                return null;
+            }
+        }
         public void Return(Cell cell) => pool.Release(cell);
         public override void Awake()
         {

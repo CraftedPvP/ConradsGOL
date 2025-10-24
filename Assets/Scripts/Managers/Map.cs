@@ -97,6 +97,7 @@ namespace Michael {
             if (!cellCollider)
             {
                 Cell newCell = SpawnCellAtPosition(clampedPos);
+                if(newCell == null) return;
                 gameSettings.TransitionState.Execute(newCell);
                 return;
             }
@@ -107,7 +108,9 @@ namespace Michael {
         }
         public Cell SpawnCellAtPosition(Vector3 position)
         {
-            Cell newCell = CellSpawner.Instance.Get();
+            Cell newCell = CellSpawner.Instance.GetWithinLimits();
+            if (newCell == null) return null;
+
             newCell.transform.position = position;
             cells.Add(newCell);
             newCell.FutureIsAlive = true;
