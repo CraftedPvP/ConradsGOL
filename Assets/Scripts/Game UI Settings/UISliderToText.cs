@@ -17,7 +17,7 @@ namespace Michael
             UpdateText(slider.value);
         }
 
-        void UpdateText(float value) => text.text = string.Format(formatString, value);
+        protected void UpdateText(float value) => text.text = string.Format(formatString, value);
         public void ForceUpdate() => UpdateText(slider.value);
     }
 }

@@ -14,6 +14,7 @@ namespace Michael
     public class GameManager : Singleton<GameManager>
     {
         public Action<GameState> OnGameStateChanged;
+        public Action<float> OnGameSpeedChanged;
         GameState _currentGameState = GameState.Idle;
         public GameState CurrentGameState {
             get => _currentGameState;
@@ -30,10 +31,6 @@ namespace Michael
         public int Generation => generation;
         public bool IsGameRunning => CurrentGameState == GameState.Running;
 
-        public override void Awake()
-        {
-            base.Awake();
-        }
         void Start()
         {
             // disable here so we can manually control when Update is called
@@ -98,19 +95,13 @@ namespace Michael
             CallUpdateStats();
         }
         #region Game Speed
-        public void ResetGameSpeed()
-        {
-            Time.timeScale = 1f;
-        }
-
-        public void PauseGameSpeed()
-        {
-            Time.timeScale = 0f;
-        }
+        public void ResetGameSpeed() => SetGameSpeed(1f);
+        public void PauseGameSpeed() => SetGameSpeed(0f);
         public float SetGameSpeed(float speed)
         {
             speed = Mathf.Clamp(speed, 0f, 3f);
             Time.timeScale = speed;
+            OnGameSpeedChanged?.Invoke(Time.timeScale);
             return Time.timeScale;
         }
         #endregion

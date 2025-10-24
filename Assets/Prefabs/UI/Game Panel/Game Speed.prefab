@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4539361021490028682}
-  - component: {fileID: 3289002046297445991}
+  - component: {fileID: 4106602396417209664}
   - component: {fileID: 3262979587450660150}
   - component: {fileID: 1871743909941140701}
   - component: {fileID: 8730353275483700460}
@@ -289,7 +289,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 19}
   m_SizeDelta: {x: 200, y: 101.1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3289002046297445991
+--- !u!114 &4106602396417209664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3710674198453575611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e14210eb6100e5547936c9433578ca68, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b1a0e791ea79d34fa7b98c6fff55d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 8005725856846000544}
@@ -613,18 +613,6 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000, guid: c5f013b50c4ae0a4db806c7800d7c72d, type: 2}
         m_TargetAssemblyTypeName: Michael.GameUIEventHandler, Assembly-CSharp
         m_MethodName: ResetGameSpeed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3289002046297445991}
-        m_TargetAssemblyTypeName: Michael.UISliderToText, Assembly-CSharp
-        m_MethodName: ForceUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
