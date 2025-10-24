@@ -12,7 +12,7 @@ namespace Michael
         }
 
         void OnSliderValueChanged(float value)
-        {
+        { // dev note: the cell size must be a whole integer. otherwise, the grid calculations get messed up.
             GameManager.Instance.GameSettings.CellSize = value;
         }
         

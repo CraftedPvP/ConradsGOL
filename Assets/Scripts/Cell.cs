@@ -160,8 +160,8 @@ namespace Michael
             if (Mathf.Approximately(oldSize, 0f)) oldSize = newSize;
 
             Vector3 pos = transform.position;
-            int gridX = Mathf.FloorToInt(pos.x / oldSize);
-            int gridY = Mathf.FloorToInt(pos.y / oldSize);
+            int gridX = Mathf.RoundToInt(pos.x / oldSize);
+            int gridY = Mathf.RoundToInt(pos.y / oldSize);
 
             // Set new scale
             transform.localScale = Vector3.one * newSize;

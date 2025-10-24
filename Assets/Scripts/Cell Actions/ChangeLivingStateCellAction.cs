@@ -5,8 +5,8 @@ namespace Michael
     /// <summary>
     /// A cell action that changes the future state of a cell based on its live neighbors.
     /// </summary>
-    [CreateAssetMenu(fileName = "Change State", menuName = "Michael/Cell Actions/Change State")]
-    public class ChangeStateCellAction : ICellAction
+    [CreateAssetMenu(fileName = "Change Living State", menuName = "Michael/Cell Actions/Change Living State")]
+    public class ChangeLivingStateCellAction : ICellAction
     {
         public override void Execute(Cell cell)
         {
