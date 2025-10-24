@@ -17,14 +17,12 @@ namespace Michael
             for (int i = 0; i < cell.Neighbors.Length; i++)
             {
                 Cell neighbor = cell.Neighbors[i];
-                if (!neighbor || !neighbor.IsAlive)
-                {
-                    Vector3 pos = cell.transform.position;
-                    Vector3 dir = CheckNeighborsCellAction.NeighborDirections[i] * GameManager.Instance.GameSettings.CellSize;
-                    pos.x += dir.x;
-                    pos.y += dir.y;
-                    emptyNeighbors.Add(i, pos);
-                }
+                if (neighbor) continue;
+                Vector3 pos = cell.transform.position;
+                Vector3 dir = CheckNeighborsCellAction.NeighborDirections[i] * GameManager.Instance.GameSettings.CellSize;
+                pos.x += dir.x;
+                pos.y += dir.y;
+                emptyNeighbors.Add(i, pos);
             }
             CheckIfCanExpand();
         }
@@ -60,23 +58,22 @@ namespace Michael
         {
             int minRequirementForExpansion = 3;
             int liveNeighborCount = 0;
-
+            RaycastHit2D[] raycastHits = new RaycastHit2D[1];
             // create a raycast in set directions to check for neighbors
             for (int i = 0;
                 i < CheckNeighborsCellAction.NeighborDirections.Length &&
                 liveNeighborCount < minRequirementForExpansion; i++)
             {
                 Vector3 offset = CheckNeighborsCellAction.NeighborDirections[i] * (GameManager.Instance.GameSettings.CellSize / 2);
-                RaycastHit2D hit = Physics2D.Raycast(
+                int hits = Physics2D.RaycastNonAlloc(
                     emptyCellPos + offset,
                     CheckNeighborsCellAction.NeighborDirections[i],
+                    raycastHits,
                     // raycast padding to ensure we hit the diagonal neighbor
                     GameManager.Instance.GameSettings.CellSize * GameManager.Instance.GameSettings.RaycastPadding,
                     GameManager.Instance.GameSettings.CellLayerMask
                 );
-                if (!hit.collider) continue;
-                Cell neighbor = hit.collider.GetComponent<Cell>();
-                if (neighbor.IsAlive) liveNeighborCount++;
+                if (hits > 0) liveNeighborCount++;
             }
             // Debug.Log("live count for empty cell at " + emptyCellPos + " is " + liveNeighborCount);
             return liveNeighborCount >= minRequirementForExpansion;
