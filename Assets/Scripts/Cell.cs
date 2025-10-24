@@ -169,6 +169,9 @@ namespace Michael
             // Center the cell in its grid cell
             float offset = newSize / 2f;
             transform.position = new Vector3(gridX * newSize + offset, gridY * newSize + offset, pos.z);
+
+            // sometimes the spriteObject scale gets messed up, so we reset it
+            spriteObject.transform.localScale = Vector3.one;
         }
     }
 }
